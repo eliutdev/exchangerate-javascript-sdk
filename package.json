@@ -1,6 +1,6 @@
 {
   "name": "exchangerate-javascript-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Unofficial JavaScript SDK for Exchange rates API",
   "module": "dist/index.js",
