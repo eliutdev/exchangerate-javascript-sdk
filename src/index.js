@@ -71,10 +71,4 @@ class Exchangerate extends ExchangerateRequest {
   }
 }
 
-const exchangerate = new Exchangerate();
-
-exchangerate
-  .convert({ from: "USD", to: "EUR", amount: 18 })
-  .then((data) => console.log(data));
-
 module.exports = Exchangerate;
