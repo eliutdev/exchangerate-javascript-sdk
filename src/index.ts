@@ -192,4 +192,25 @@ export class Exchangerate extends ExchangerateRequest {
       throw error;
     }
   }
+  /**
+  * API comes with a constantly updated endpoint returning all available currencies.
+  * @param {function} parameters.callback - Callback function
+  * @param {string} parameters.format - Format of the response
+  */
+  async symbols(parameters?: ExchangerateRequestParams): Promise<any> {
+    try {
+      // serialize the parameters
+      const query = this.serialize(parameters);
+      // prepare the request
+      const request = this.prepareRequest(
+        `${this.requestURL}/symbols`,
+        "GET",
+        query
+      );
+      // send the request
+      return this.sendRequest(request);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
