@@ -1,6 +1,18 @@
-const ExchangerateRequest = require("./request");
+import { ExchangerateRequest } from "./helpers/exchangerateRequest";
 
-class Exchangerate extends ExchangerateRequest {
+interface ExchangerateRequestParams {
+  from?: string;
+  to?: string;
+  date?: string;
+  symbols?: Array<string>,
+  amount?: number,
+  places?: number,
+  format?: string,
+  source?: string,
+  callback?: Function
+}
+
+export class Exchangerate extends ExchangerateRequest {
   requestURL = "https://api.exchangerate.host";
 
   /**
@@ -14,7 +26,7 @@ class Exchangerate extends ExchangerateRequest {
    * @param {string} parameters.format - Format of the response
    * @param {string} parameters.source - Source of the exchange rate
    */
-  async latest(parameters) {
+  async latest(parameters: ExchangerateRequestParams): Promise<any> {
     try {
       // serialize the parameters
       const query = this.serialize(parameters);
@@ -31,7 +43,7 @@ class Exchangerate extends ExchangerateRequest {
     }
   }
   /**
-   * Convert currency 
+   * Convert currency
    * @param {object} parameters - Parameters for the request
    * @param {string} parameters.from - The three-letter currency code of the currency you would like to convert from.
    * @param {string} parameters.to - The three-letter currency code of the currency you would like to convert to.
@@ -44,7 +56,7 @@ class Exchangerate extends ExchangerateRequest {
    * @param {string} parameters.format - Format of the response
    * @param {string} parameters.source - Source of the exchange rate
    */
-  async convert(parameters) {
+  async convert(parameters: ExchangerateRequestParams): Promise<any> {
     try {
       // from and to are required
       if (!parameters.from || !parameters.to) {
@@ -62,7 +74,6 @@ class Exchangerate extends ExchangerateRequest {
         "GET",
         query
       );
-      console.log(request);
       // send the request
       return this.sendRequest(request);
     } catch (error) {
@@ -70,5 +81,3 @@ class Exchangerate extends ExchangerateRequest {
     }
   }
 }
-
-module.exports = Exchangerate;
