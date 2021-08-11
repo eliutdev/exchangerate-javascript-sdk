@@ -92,7 +92,7 @@ export class Exchangerate extends ExchangerateRequest {
   * @param {string} parameters.format - Format of the response
   * @param {string} parameters.source - Source of the exchange rate
   */
-  async historicalRates(date: string, parameters?: ExchangerateRequestParams): Promise<any> {
+  async historicalRates(date: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>): Promise<any> {
     try {
       // date format must be YYYY-MM-DD
       if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -125,7 +125,7 @@ export class Exchangerate extends ExchangerateRequest {
   * @param {string} parameters.format - Format of the response
   * @param {string} parameters.source - Source of the exchange rate
   */
-  async timeseries(startDate: string, endDate: string, parameters?: ExchangerateRequestParams): Promise<any> {
+  async timeseries(startDate: string, endDate: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>): Promise<any> {
     try {
       // startDate and endDate format must be YYYY-MM-DD
       if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
@@ -165,7 +165,7 @@ export class Exchangerate extends ExchangerateRequest {
   * @param {string} parameters.format - Format of the response
   * @param {string} parameters.source - Source of the exchange rate
   */
-  async fluctuation(startDate: string, endDate: string, parameters?: ExchangerateRequestParams): Promise<any> {
+  async fluctuation(startDate: string, endDate: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>): Promise<any> {
     try {
       // startDate and endDate format must be YYYY-MM-DD
       if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
@@ -198,7 +198,7 @@ export class Exchangerate extends ExchangerateRequest {
   * @param {function} parameters.callback - Callback function
   * @param {string} parameters.format - Format of the response
   */
-  async symbols(parameters?: ExchangerateRequestParams): Promise<any> {
+  async symbols(parameters?: Pick<ExchangerateRequestParams, 'callback' | 'format'>): Promise<any> {
     try {
       // serialize the parameters
       const query = this.serialize(parameters);
