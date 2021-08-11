@@ -24,7 +24,7 @@ exchangerate
 
 ```javascript
 // Get the latest foreign exchange rates.
-(method) Exchangerate.latest(parameters: ExchangerateRequestParams): Promise<any>
+(method) Exchangerate.latest(parameters?: ExchangerateRequestParams): Promise<any>
 ```
 
 `parameters`

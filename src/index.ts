@@ -16,7 +16,7 @@ export class Exchangerate extends ExchangerateRequest {
   requestURL = "https://api.exchangerate.host";
 
   /**
-   * Latest Rates
+   * Get the latest foreign exchange reference rates.
    * @param {object} parameters - Parameters for the request
    * @param {string} parameters.base - Base currency
    * @param {Array} parameters.symbols - Symbols to convert
@@ -26,7 +26,7 @@ export class Exchangerate extends ExchangerateRequest {
    * @param {string} parameters.format - Format of the response
    * @param {string} parameters.source - Source of the exchange rate
    */
-  async latest(parameters: ExchangerateRequestParams): Promise<any> {
+  async latest(parameters?: ExchangerateRequestParams): Promise<any> {
     try {
       // serialize the parameters
       const query = this.serialize(parameters);
@@ -43,7 +43,7 @@ export class Exchangerate extends ExchangerateRequest {
     }
   }
   /**
-   * Convert currency
+   * Currency conversion endpoint, can be used to convert any amount from one currency to another.
    * @param {object} parameters - Parameters for the request
    * @param {string} parameters.from - The three-letter currency code of the currency you would like to convert from.
    * @param {string} parameters.to - The three-letter currency code of the currency you would like to convert to.
@@ -81,7 +81,7 @@ export class Exchangerate extends ExchangerateRequest {
     }
   }
   /**
-  * Historical rates
+  * Historical rates are available for most currencies all the way back to the year of 1999. 
   * @param {string} date - Date of the exchange rate you would like to get.
   * @param {object} parameters - Parameters for the request
   * @param {string} parameters.base - Base currency
@@ -92,7 +92,7 @@ export class Exchangerate extends ExchangerateRequest {
   * @param {string} parameters.format - Format of the response
   * @param {string} parameters.source - Source of the exchange rate
   */
-  async historicalRates(date: string, parameters: ExchangerateRequestParams): Promise<any> {
+  async historicalRates(date: string, parameters?: ExchangerateRequestParams): Promise<any> {
     try {
       // date format must be YYYY-MM-DD
       if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -103,6 +103,46 @@ export class Exchangerate extends ExchangerateRequest {
       // prepare the request
       const request = this.prepareRequest(
         `${this.requestURL}/${date}`,
+        "GET",
+        query
+      );
+      // send the request
+      return this.sendRequest(request);
+    } catch (error) {
+      throw error;
+    }
+  }
+  /**
+  * Timeseries endpoint are for daily historical rates between two dates of your choice, with a maximum time frame of 366 days.
+  * @param {string} startDate - The start date of your preferred timeframe.
+  * @param {string} endDate - The end date of your preferred timeframe.
+  * @param {object} parameters - Parameters for the request
+  * @param {string} parameters.base - Base currency
+  * @param {Array} parameters.symbols - Symbols to convert
+  * @param {number} parameters.amount - Amount to convert
+  * @param {function} parameters.callback - Callback function
+  * @param {number} parameters.places - Number of decimal places
+  * @param {string} parameters.format - Format of the response
+  * @param {string} parameters.source - Source of the exchange rate
+  */
+  async timeseries(startDate: string, endDate: string, parameters?: ExchangerateRequestParams): Promise<any> {
+    try {
+      // startDate and endDate format must be YYYY-MM-DD
+      if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
+        throw new Error("startDate must be in YYYY-MM-DD format");
+      }
+      if (endDate && !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
+        throw new Error("endDate must be in YYYY-MM-DD format");
+      }
+      // endDate must be after startDate
+      if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
+        throw new Error("endDate must be after startDate");
+      }
+      // serialize the parameters
+      const query = this.serialize({ ...parameters, start_date: startDate, end_date: endDate });
+      // prepare the request
+      const request = this.prepareRequest(
+        `${this.requestURL}/timeseries`,
         "GET",
         query
       );
