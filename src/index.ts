@@ -80,4 +80,36 @@ export class Exchangerate extends ExchangerateRequest {
       throw error;
     }
   }
+  /**
+  * Historical rates
+  * @param {string} date - Date of the exchange rate you would like to get.
+  * @param {object} parameters - Parameters for the request
+  * @param {string} parameters.base - Base currency
+  * @param {Array} parameters.symbols - Symbols to convert
+  * @param {number} parameters.amount - Amount to convert
+  * @param {function} parameters.callback - Callback function
+  * @param {number} parameters.places - Number of decimal places
+  * @param {string} parameters.format - Format of the response
+  * @param {string} parameters.source - Source of the exchange rate
+  */
+  async historicalRates(date: string, parameters: ExchangerateRequestParams): Promise<any> {
+    try {
+      // date format must be YYYY-MM-DD
+      if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        throw new Error("date must be in YYYY-MM-DD format");
+      }
+      // serialize the parameters
+      const query = this.serialize(parameters);
+      // prepare the request
+      const request = this.prepareRequest(
+        `${this.requestURL}/${date}`,
+        "GET",
+        query
+      );
+      // send the request
+      return this.sendRequest(request);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
