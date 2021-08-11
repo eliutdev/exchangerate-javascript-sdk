@@ -7,7 +7,7 @@ npm i exchangerate-javascript-sdk
 ## Usage
 
 ```javascript
-const Exchangerate = require("exchangerate-javascript-sdk");
+import {Exchangerate} from "exchangerate-javascript-sdk";
 
 const exchangerate = new Exchangerate();
 
