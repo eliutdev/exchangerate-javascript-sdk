@@ -194,6 +194,7 @@ export class Exchangerate extends ExchangerateRequest {
   }
   /**
   * API comes with a constantly updated endpoint returning all available currencies.
+  * @param {object} parameters - Parameters for the request
   * @param {function} parameters.callback - Callback function
   * @param {string} parameters.format - Format of the response
   */
@@ -204,6 +205,29 @@ export class Exchangerate extends ExchangerateRequest {
       // prepare the request
       const request = this.prepareRequest(
         `${this.requestURL}/symbols`,
+        "GET",
+        query
+      );
+      // send the request
+      return this.sendRequest(request);
+    } catch (error) {
+      throw error;
+    }
+  }
+  /**
+  * Our accurate EU VAT information API simplifies in and around the European Union. 
+  * @param {object} parameters - Parameters for the request
+  * @param {Array} parameters.symbols - Symbols to convert
+  * @param {function} parameters.callback - Callback function
+  * @param {string} parameters.format - Format of the response
+  */
+  async EUVATRates(parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>): Promise<any> {
+    try {
+      // serialize the parameters
+      const query = this.serialize(parameters);
+      // prepare the request
+      const request = this.prepareRequest(
+        `${this.requestURL}/vat_rates`,
         "GET",
         query
       );
