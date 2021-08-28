@@ -36,6 +36,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -70,6 +71,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -98,6 +100,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -138,6 +141,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -178,6 +182,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -196,6 +201,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -215,6 +221,7 @@ export class Exchangerate extends ExchangerateRequest {
       // send the request
       return this.sendRequest(request);
     } catch (error) {
+      console.error(error);
       throw error;
     }
   }
