@@ -37,7 +37,7 @@ export const latest = (parameters?: ExchangerateRequestParams): Promise<any> => 
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * Currency conversion endpoint, can be used to convert any amount from one currency to another.
  * @param {object} parameters - Parameters for the request
@@ -72,7 +72,7 @@ export const convert = (parameters: ExchangerateRequestParams): Promise<any> => 
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * Historical rates are available for most currencies all the way back to the year of 1999.
  * @param {string} date - Date of the exchange rate you would like to get.
@@ -85,7 +85,10 @@ export const convert = (parameters: ExchangerateRequestParams): Promise<any> => 
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const historicalRates = (date: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>): Promise<any> => {
+export const historicalRates = (
+  date: string,
+  parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
+): Promise<any> => {
   try {
     // date format must be YYYY-MM-DD
     if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -101,7 +104,7 @@ export const historicalRates = (date: string, parameters?: Omit<ExchangerateRequ
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * Timeseries endpoint are for daily historical rates between two dates of your choice, with a maximum time frame of 366 days.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -142,7 +145,7 @@ export const timeseries = (
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * Using the fluctuation endpoint you will be able to retrieve information about how currencies fluctuate on a day-to-day basis.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -183,7 +186,7 @@ export const fluctuation = (
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * API comes with a constantly updated endpoint returning all available currencies.
  * @param {object} parameters - Parameters for the request
@@ -202,7 +205,7 @@ export const symbols = (parameters?: Pick<ExchangerateRequestParams, 'callback' 
     console.error(error);
     throw error;
   }
-}
+};
 /**
  * Our accurate EU VAT information API simplifies in and around the European Union.
  * @param {object} parameters - Parameters for the request
@@ -210,7 +213,9 @@ export const symbols = (parameters?: Pick<ExchangerateRequestParams, 'callback' 
  * @param {function} parameters.callback - Callback function
  * @param {string} parameters.format - Format of the response
  */
-export const EUVATRates = (parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>): Promise<any> => {
+export const EUVATRates = (
+  parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>,
+): Promise<any> => {
   try {
     // serialize the parameters
     const query = fetch.serialize(parameters);
@@ -222,4 +227,4 @@ export const EUVATRates = (parameters?: Pick<ExchangerateRequestParams, 'symbols
     console.error(error);
     throw error;
   }
-}
+};

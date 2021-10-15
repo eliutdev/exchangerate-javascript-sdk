@@ -16,5 +16,5 @@ export default {
     return axios(request).then((response) => {
       return response.data;
     });
-  }
-}
+  },
+};
