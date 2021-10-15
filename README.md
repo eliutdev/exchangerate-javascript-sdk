@@ -73,4 +73,4 @@ exchangerate.EUVATRates().then((data) => console.log(data));
 ```
 
 ## Documentation
-https://reliut-g.github.io/exchangerate-javascript-sdk/
+https://eliutgon.github.io/exchangerate-javascript-sdk
