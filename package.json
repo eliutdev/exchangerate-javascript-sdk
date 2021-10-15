@@ -4,8 +4,10 @@
   "description": "Unofficial JavaScript SDK for Exchange rates API",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
+  "types": "./index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "dependencies": {
     "axios": "0.23.0",
@@ -15,7 +17,8 @@
     "docs": "npx typedoc src/index.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "build": "rm -fr dist/* && node scripts/build.js",
+    "declaration": "tsc src/index.ts --declaration --emitDeclarationOnly --declarationDir .",
+    "build": "rm -fr dist/* && node scripts/build.js && npm run declaration",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
