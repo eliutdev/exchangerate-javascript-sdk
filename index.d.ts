@@ -1,13 +1,13 @@
 interface ExchangerateRequestParams {
-  from?: string;
-  to?: string;
-  date?: string;
-  symbols?: Array<string>;
-  amount?: number;
-  places?: number;
-  format?: string;
-  source?: string;
-  callback?: () => void;
+    from?: string;
+    to?: string;
+    date?: string;
+    symbols?: Array<string>;
+    amount?: number;
+    places?: number;
+    format?: string;
+    source?: string;
+    callback?: () => void;
 }
 /**
  * Get the latest foreign exchange reference rates.
@@ -48,10 +48,7 @@ export declare const convert: (parameters: ExchangerateRequestParams) => Promise
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export declare const historicalRates: (
-  date: string,
-  parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-) => Promise<any>;
+export declare const historicalRates: (date: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>) => Promise<any>;
 /**
  * Timeseries endpoint are for daily historical rates between two dates of your choice, with a maximum time frame of 366 days.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -65,11 +62,7 @@ export declare const historicalRates: (
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export declare const timeseries: (
-  startDate: string,
-  endDate: string,
-  parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-) => Promise<any>;
+export declare const timeseries: (startDate: string, endDate: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>) => Promise<any>;
 /**
  * Using the fluctuation endpoint you will be able to retrieve information about how currencies fluctuate on a day-to-day basis.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -83,11 +76,7 @@ export declare const timeseries: (
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export declare const fluctuation: (
-  startDate: string,
-  endDate: string,
-  parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-) => Promise<any>;
+export declare const fluctuation: (startDate: string, endDate: string, parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>) => Promise<any>;
 /**
  * API comes with a constantly updated endpoint returning all available currencies.
  * @param {object} parameters - Parameters for the request
@@ -102,6 +91,5 @@ export declare const symbols: (parameters?: Pick<ExchangerateRequestParams, 'cal
  * @param {function} parameters.callback - Callback function
  * @param {string} parameters.format - Format of the response
  */
-export declare const EUVATRates: (
-  parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>,
-) => Promise<any>;
+export declare const EUVATRates: (parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>) => Promise<any>;
+export {};
