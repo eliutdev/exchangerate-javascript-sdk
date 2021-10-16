@@ -7,18 +7,16 @@ npm i exchangerate-javascript-sdk
 ## Usage
 
 ```javascript
-import { Exchangerate } from "exchangerate-javascript-sdk";
-
-const exchangerate = new Exchangerate();
+// Only import what you need
+import { latest, convert, historicalRates, timeseries, fluctuation, symbols, EUVATRates } from "exchangerate-javascript-sdk";
 
 // Latest Rates.
-exchangerate.latest().then((data) => console.log(data)); 
+latest().then((data) => console.log(data)); 
 
 // Output: {motd: Object, success: true, base: "EUR", date: "2021-08-28", rates: Object}
 
 // Currency conversion
-exchangerate
-  .convert({ from: "USD", to: "EUR", amount: 18 })
+convert({ from: "USD", to: "EUR", amount: 18 })
   .then((data) => console.log(data));
   
 /* Output: {
@@ -32,8 +30,7 @@ exchangerate
 } */
 
 // Currency conversion
-exchangerate
-  .convert({ from: "USD", to: "EUR", amount: 18, places: 2 })
+convert({ from: "USD", to: "EUR", amount: 18, places: 2 })
   .then((data) => console.log(data));
   
 /* Output: {
@@ -48,28 +45,26 @@ exchangerate
 
 // Historical Rates
 (async () => {
-  const data = await exchangerate.historicalRates("2020-04-04");
+  const data = await historicalRates("2020-04-04");
   console.log(data);
 })()
 
 // Output: {motd: Object, success: true, historical: true, base: "EUR", date: "2020-04-04", rates: Object}
 
 // Timeseries
-exchangerate
-  .timeseries("2020-04-04", "2021-01-01")
+timeseries("2020-04-04", "2021-01-01")
   .then((data) => console.log(data));
   
 
 // Fluctuation
-exchangerate
-  .fluctuation("2020-04-04", "2021-01-01")
+fluctuation("2020-04-04", "2021-01-01")
   .then((data) => console.log(data));
 
 // Symbols
-exchangerate.symbols().then((data) => console.log(data));
+symbols().then((data) => console.log(data));
 
 // EU Vat Rates
-exchangerate.EUVATRates().then((data) => console.log(data));
+EUVATRates().then((data) => console.log(data));
 ```
 
 ## Documentation

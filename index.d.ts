@@ -1,9 +1,7 @@
-import fetch from './helpers/fetch';
 interface ExchangerateRequestParams {
   from?: string;
   to?: string;
   date?: string;
-  /* tslint:disable */
   symbols?: Array<string>;
   amount?: number;
   places?: number;
@@ -11,9 +9,6 @@ interface ExchangerateRequestParams {
   source?: string;
   callback?: () => void;
 }
-
-const API_URL = 'https://api.exchangerate.host';
-
 /**
  * Get the latest foreign exchange reference rates.
  * @param {object} parameters - Parameters for the request
@@ -25,19 +20,7 @@ const API_URL = 'https://api.exchangerate.host';
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const latest = (parameters?: ExchangerateRequestParams): Promise<any> => {
-  try {
-    // serialize the parameters
-    const query = fetch.serialize(parameters);
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/latest`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+export declare const latest: (parameters?: ExchangerateRequestParams) => Promise<any>;
 /**
  * Currency conversion endpoint, can be used to convert any amount from one currency to another.
  * @param {object} parameters - Parameters for the request
@@ -52,27 +35,7 @@ export const latest = (parameters?: ExchangerateRequestParams): Promise<any> => 
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const convert = (parameters: ExchangerateRequestParams): Promise<any> => {
-  try {
-    // from and to are required
-    if (!parameters.from || !parameters.to) {
-      throw new Error('from and to are required');
-    }
-    // date format must be YYYY-MM-DD
-    if (parameters.date && !/^\d{4}-\d{2}-\d{2}$/.test(parameters.date)) {
-      throw new Error('date must be in YYYY-MM-DD format');
-    }
-    // serialize the parameters
-    const query = fetch.serialize(parameters);
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/convert`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+export declare const convert: (parameters: ExchangerateRequestParams) => Promise<any>;
 /**
  * Historical rates are available for most currencies all the way back to the year of 1999.
  * @param {string} date - Date of the exchange rate you would like to get.
@@ -85,26 +48,10 @@ export const convert = (parameters: ExchangerateRequestParams): Promise<any> => 
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const historicalRates = (
+export declare const historicalRates: (
   date: string,
   parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-): Promise<any> => {
-  try {
-    // date format must be YYYY-MM-DD
-    if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      throw new Error('date must be in YYYY-MM-DD format');
-    }
-    // serialize the parameters
-    const query = fetch.serialize(parameters);
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/${date}`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+) => Promise<any>;
 /**
  * Timeseries endpoint are for daily historical rates between two dates of your choice, with a maximum time frame of 366 days.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -118,34 +65,11 @@ export const historicalRates = (
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const timeseries = (
+export declare const timeseries: (
   startDate: string,
   endDate: string,
   parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-): Promise<any> => {
-  try {
-    // startDate and endDate format must be YYYY-MM-DD
-    if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
-      throw new Error('startDate must be in YYYY-MM-DD format');
-    }
-    if (endDate && !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
-      throw new Error('endDate must be in YYYY-MM-DD format');
-    }
-    // endDate must be after startDate
-    if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
-      throw new Error('endDate must be after startDate');
-    }
-    // serialize the parameters
-    const query = fetch.serialize({ ...parameters, start_date: startDate, end_date: endDate });
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/timeseries`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+) => Promise<any>;
 /**
  * Using the fluctuation endpoint you will be able to retrieve information about how currencies fluctuate on a day-to-day basis.
  * @param {string} startDate - The start date of your preferred timeframe.
@@ -159,53 +83,18 @@ export const timeseries = (
  * @param {string} parameters.format - Format of the response
  * @param {string} parameters.source - Source of the exchange rate
  */
-export const fluctuation = (
+export declare const fluctuation: (
   startDate: string,
   endDate: string,
   parameters?: Omit<ExchangerateRequestParams, 'from' | 'to'>,
-): Promise<any> => {
-  try {
-    // startDate and endDate format must be YYYY-MM-DD
-    if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
-      throw new Error('startDate must be in YYYY-MM-DD format');
-    }
-    if (endDate && !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
-      throw new Error('endDate must be in YYYY-MM-DD format');
-    }
-    // endDate must be after startDate
-    if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
-      throw new Error('endDate must be after startDate');
-    }
-    // serialize the parameters
-    const query = fetch.serialize({ ...parameters, start_date: startDate, end_date: endDate });
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/fluctuation`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+) => Promise<any>;
 /**
  * API comes with a constantly updated endpoint returning all available currencies.
  * @param {object} parameters - Parameters for the request
  * @param {function} parameters.callback - Callback function
  * @param {string} parameters.format - Format of the response
  */
-export const symbols = (parameters?: Pick<ExchangerateRequestParams, 'callback' | 'format'>): Promise<any> => {
-  try {
-    // serialize the parameters
-    const query = fetch.serialize(parameters);
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/symbols`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+export declare const symbols: (parameters?: Pick<ExchangerateRequestParams, 'callback' | 'format'>) => Promise<any>;
 /**
  * Our accurate EU VAT information API simplifies in and around the European Union.
  * @param {object} parameters - Parameters for the request
@@ -213,18 +102,6 @@ export const symbols = (parameters?: Pick<ExchangerateRequestParams, 'callback' 
  * @param {function} parameters.callback - Callback function
  * @param {string} parameters.format - Format of the response
  */
-export const EUVATRates = (
+export declare const EUVATRates: (
   parameters?: Pick<ExchangerateRequestParams, 'symbols' | 'callback' | 'format'>,
-): Promise<any> => {
-  try {
-    // serialize the parameters
-    const query = fetch.serialize(parameters);
-    // prepare the request
-    const request = fetch.prepareRequest(`${API_URL}/vat_rates`, 'GET', query);
-    // send the request
-    return fetch.sendRequest(request);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+) => Promise<any>;
